@@ -1,0 +1,11 @@
+/*
+!.gitignore
+!LICENSE
+!.vscode/
+
+!hypr/
+
+!kitty/
+kitty/*.kitty-session
+
+!eww
