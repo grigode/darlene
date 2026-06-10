@@ -1,0 +1,67 @@
+; ------------------------------------
+;  _____             _                
+; |_   _|           | |               
+;   | | ___  _ __   | |__   __ _ _ __ 
+;   | |/ _ \| '_ \  | '_ \ / _` | '__|
+;   | | (_) | |_) | | |_) | (_| | |   
+;   \_/\___/| .__/  |_.__/ \__,_|_|   
+;           | |                       
+;           |_|                       
+; ------------------------------------
+
+
+(defwindow topbar
+  :monitor '["HDMI-A-1", "eDP-1", 0]'
+  :geometry (geometry :x "0"
+    :y "0px"
+    :width "96%"
+    :height "40px"
+  :anchor "top center")
+  :stacking "bottom"
+  :reserve (struts :distance "60px" :side "top")
+  :windowtype "normal"
+  :wm-ignore true
+  :exclusive true
+  (wrapper)
+)
+
+(defwidget wrapper [] (box
+    :class "wrapper"
+    :orientation "horizontal"
+    (box :class "start")
+    (box :class "middle")
+    (box :class "end"
+        (clock)
+    )
+))
+
+;  _    _  ____  ____    ___  ____  ____  ___ 
+; ( \/\/ )(_  _)(  _ \  / __)( ___)(_  _)/ __)
+;  )    (  _)(_  )(_) )( (_-. )__)   )(  \__ \
+; (__/\__)(____)(____/  \___/(____) (__) (___/
+                                        
+
+(defwidget clock []
+  (box
+    :class "clock"
+    :orientation "horizontal"
+    :halign "center"
+    :valign "center"
+    :width 120
+    :hexpand false
+    :active false
+    "󰥔   ${time}"
+  )
+)
+
+
+;  ____  _____  _____  __    ___ 
+; (  _ \(  _  )(  _  )(  )  / __)
+;  )___/ )(_)(  )(_)(  )(__ \__ \
+; (__)  (_____)(_____)(____)(___/
+                              
+
+(defpoll time :interval "1s"
+  :initial "time"
+  :run-while true
+`date +%H:%M:%S`)
