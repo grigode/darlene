@@ -15,6 +15,7 @@ $tb-background-color: rgba($background, 0.6);
 $tb-border-color: rgba($foreground, 0.2);
 $tb-foreground: $foreground;
 $charging: rgba(0, 255, 0, 0.7);
+$discharged: rgba(255, 0, 0, 0.7);
 
 .topbar {
     border-width: 2px;
@@ -43,4 +44,8 @@ $charging: rgba(0, 255, 0, 0.7);
 
 .battery.charging label {
     color: $charging;
+}
+
+.battery.discharged label {
+    color: $discharged;
 }

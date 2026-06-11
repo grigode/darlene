@@ -43,7 +43,7 @@
 
 (defwidget battery []
   (box 
-    :class "battery ${EWW_BATTERY.BAT1.status == "Not Charging"  ? "" : "charging"}"
+    :class "battery  ${EWW_BATTERY.BAT1.status == "Charging"  ? "charging" : EWW_BATTERY.BAT1.capacity < 20  ? "discharged" : ""}"
     :orientation "horizontal"
     :halign "center"
     :valign "center"
@@ -53,7 +53,6 @@
     (label
       :text "${EWW_BATTERY.BAT1.capacity < 15 ? "" : EWW_BATTERY.BAT1.capacity < 30 ? "" : EWW_BATTERY.BAT1.capacity < 60 ? "" : EWW_BATTERY.BAT1.capacity < 80 ? "" : "" }     ${EWW_BATTERY.BAT1.capacity}%"
     )
-    " ${EWW_BATTERY.BAT1.status == "Not Charging"  ? "" : "charging"}"
   )
 )
 
