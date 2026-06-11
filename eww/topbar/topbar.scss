@@ -26,11 +26,13 @@ $discharged: rgba(255, 0, 0, 0.7);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     background: $tb-background-color;
+    padding: 0 16px;
 }
 
 .clock,
-.battery {
-    padding: 4px;
+.battery,
+.system-stats {
+    padding: 4px 12px;
     border-width: 1px;
     border-color: $tb-border-color;
     border-style: solid;
@@ -48,4 +50,125 @@ $discharged: rgba(255, 0, 0, 0.7);
 
 .battery.discharged label {
     color: $discharged;
+}
+
+.tooltip {
+    background-color: rgba($background, 0.95);
+    border: 1px solid rgba($foreground, 0.15);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.cpu-tooltip {
+    .cpu-tooltip-title {
+        color: $tb-foreground;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .cpu-tooltip-separator {
+        background-color: rgba($foreground, 0.15);
+        min-height: 1px;
+        margin-bottom: 8px;
+    }
+
+    .cpu-core-row {
+        margin: 2px 0;
+
+        .cpu-core-name {
+            color: rgba($foreground, 0.7);
+            font-size: 12px;
+            min-width: 45px;
+        }
+
+        .cpu-core-progress {
+            min-width: 100px;
+            margin: 0 10px;
+
+            trough {
+                background-color: rgba($foreground, 0.1);
+                border-radius: 4px;
+                min-height: 8px;
+                padding: 1px 0;
+            }
+
+            progress {
+                background-color: $color4;
+                border-color: $color4;
+                border-radius: 4px;
+                min-height: 8px;
+            }
+        }
+
+        .cpu-core-usage {
+            color: $tb-foreground;
+            font-weight: bold;
+            font-size: 12px;
+            min-width: 35px;
+        }
+
+        .cpu-core-freq {
+            color: rgba($foreground, 0.5);
+            font-size: 11px;
+            min-width: 55px;
+        }
+    }
+}
+
+.ram-tooltip {
+    background-color: rgba($background, 0.95);
+    border: 1px solid rgba($foreground, 0.15);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+
+    .ram-tooltip-title {
+        color: $tb-foreground;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .ram-tooltip-separator {
+        background-color: rgba($foreground, 0.15);
+        min-height: 1px;
+        margin-bottom: 8px;
+    }
+
+    .ram-row {
+        margin: 4px 0;
+
+        .ram-label {
+            color: rgba($foreground, 0.7);
+            font-size: 12px;
+            min-width: 45px;
+        }
+
+        .ram-progress {
+            min-width: 100px;
+            margin: 0 10px;
+
+            trough {
+                background-color: rgba($foreground, 0.1);
+                border-radius: 4px;
+                min-height: 8px;
+            }
+
+            progress {
+                background-color: $color4;
+                border-color: $color4;
+                border-radius: 4px;
+                min-height: 8px;
+            }
+        }
+
+        .ram-value {
+            color: $tb-foreground;
+            font-weight: bold;
+            font-size: 12px;
+            min-width: 160px;
+        }
+    }
 }

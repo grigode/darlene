@@ -25,21 +25,89 @@
   (wrapper)
 )
 
-(defwidget wrapper [] (box
+(defwidget wrapper []
+  (box
     :class "wrapper"
     :orientation "horizontal"
     (box :class "start")
     (box :class "middle")
     (box :class "end"
-        (battery)
-        (clock)
+        :space-evenly false
+        :spacing 10
+        :hexpand false
+        :valign "center"
+        :halign "end"
+      (system-stats)
+      (battery)
+      (clock)
     )
-))
+  )
+)
 
 ;  _    _  ____  ____    ___  ____  ____  ___ 
 ; ( \/\/ )(_  _)(  _ \  / __)( ___)(_  _)/ __)
 ;  )    (  _)(_  )(_) )( (_-. )__)   )(  \__ \
 ; (__/\__)(____)(____/  \___/(____) (__) (___/
+
+(defwidget system-stats []
+  (box 
+    :class "system-stats"
+    :orientation "horizontal"
+    :halign "center"
+    :valign "center"
+    :width 210
+    :hexpand false
+    :active false
+    (box :hexpand false :spacing 10
+      (tooltip
+        (box :orientation "vertical"
+            :class "tooltip cpu-tooltip"
+            :space-evenly false
+          (label :class "cpu-tooltip-title" :text "CPU Average: ${round(EWW_CPU.avg, 0)}%")
+          (box :class "cpu-tooltip-separator")
+          (for core_info in {EWW_CPU.cores}
+            (box :class "cpu-core-row" :orientation "horizontal" :space-evenly false :spacing 10
+              (label :class "cpu-core-name" :text "${core_info.core}")
+              (progress :class "cpu-core-progress" :value {core_info.usage} :orientation "horizontal")
+              (label :class "cpu-core-usage" :text "${core_info.usage}%")
+              (label :class "cpu-core-freq" :text "${round(core_info.freq / 1000, 1)}GHz")
+            )
+          )
+        )
+        (label :text "    ${round(EWW_CPU.avg, 0)}%")
+      )
+
+      (tooltip
+        (box :orientation "vertical"
+            :class "ram-tooltip"
+            :space-evenly false
+          (label :class "ram-tooltip-title" :text "RAM & Swap Details")
+          (box :class "ram-tooltip-separator")
+          (box :class "ram-row" :orientation "horizontal" :space-evenly false :spacing 10
+            (label :class "ram-label" :text "RAM:")
+            (progress :class "ram-progress" :value {EWW_RAM.used_mem_perc} :orientation "horizontal")
+            (label :class "ram-value" :text "${round(EWW_RAM.used_mem / 1024 / 1024 / 1024, 1)} / ${round(EWW_RAM.total_mem / 1024 / 1024 / 1024, 1)} GiB (${round(EWW_RAM.used_mem_perc, 0)}%)")
+          )
+          (box :class "ram-row" :orientation "horizontal" :space-evenly false :spacing 10
+            (label :class "ram-label" :text "Swap:")
+            (progress :class "ram-progress" :value {EWW_RAM.total_swap == 0 ? 0 : ((EWW_RAM.total_swap - EWW_RAM.free_swap) / EWW_RAM.total_swap) * 100} :orientation "horizontal")
+            (label :class "ram-value" :text "${round((EWW_RAM.total_swap - EWW_RAM.free_swap) / 1024 / 1024 / 1024, 1)} / ${round(EWW_RAM.total_swap / 1024 / 1024 / 1024, 1)} GiB (${EWW_RAM.total_swap == 0 ? 0 : round(((EWW_RAM.total_swap - EWW_RAM.free_swap) / EWW_RAM.total_swap) * 100, 0)}%)")
+          )
+        )
+        (label :text "󰍛    ${round(EWW_RAM.used_mem_perc, 0)}%")
+      )
+
+      (tooltip
+        (box :orientation "vertical"
+            :class "tooltip"
+            :space-evenly false
+          (label :text "${round(EWW_DISK["/"].used / 1024 / 1024 / 1024, 2)}Gib used out of ${round(EWW_DISK["/"].total / 1024 / 1024 / 1024, 2)}Gib (${round(EWW_DISK["/"].used_perc, 0)}%)")
+        )
+        (label :text "    ${round(EWW_DISK["/"].used_perc, 0)}%")
+      )
+    )
+  )
+)
 
 (defwidget battery []
   (box 
