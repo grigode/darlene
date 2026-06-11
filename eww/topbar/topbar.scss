@@ -14,6 +14,7 @@
 $tb-background-color: rgba($background, 0.6);
 $tb-border-color: rgba($foreground, 0.2);
 $tb-foreground: $foreground;
+$charging: rgba(0, 255, 0, 0.7);
 
 .topbar {
     border-width: 2px;
@@ -24,19 +25,22 @@ $tb-foreground: $foreground;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     background: $tb-background-color;
+}
 
-    .wrapper {
+.clock,
+.battery {
+    padding: 4px;
+    border-width: 1px;
+    border-color: $tb-border-color;
+    border-style: solid;
+    border-radius: 20px;
 
-        .end {
-            .clock {
-                padding: 4px;
-                border-width: 1px;
-                border-color: $tb-border-color;
-                border-style: solid;
-                color: $tb-foreground;
-                font-weight: bold;
-                border-radius: 20px;
-            }
-        }
+    label {
+        color: $tb-foreground;
+        font-weight: bold;
     }
+}
+
+.battery.charging label {
+    color: $charging;
 }

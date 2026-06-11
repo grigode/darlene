@@ -31,6 +31,7 @@
     (box :class "start")
     (box :class "middle")
     (box :class "end"
+        (battery)
         (clock)
     )
 ))
@@ -39,7 +40,22 @@
 ; ( \/\/ )(_  _)(  _ \  / __)( ___)(_  _)/ __)
 ;  )    (  _)(_  )(_) )( (_-. )__)   )(  \__ \
 ; (__/\__)(____)(____/  \___/(____) (__) (___/
-                                        
+
+(defwidget battery []
+  (box 
+    :class "battery ${EWW_BATTERY.BAT1.status == "Not Charging"  ? "" : "charging"}"
+    :orientation "horizontal"
+    :halign "center"
+    :valign "center"
+    :width 120
+    :hexpand false
+    :active false
+    (label
+      :text "${EWW_BATTERY.BAT1.capacity < 15 ? "" : EWW_BATTERY.BAT1.capacity < 30 ? "" : EWW_BATTERY.BAT1.capacity < 60 ? "" : EWW_BATTERY.BAT1.capacity < 80 ? "" : "" }     ${EWW_BATTERY.BAT1.capacity}%"
+    )
+    " ${EWW_BATTERY.BAT1.status == "Not Charging"  ? "" : "charging"}"
+  )
+)
 
 (defwidget clock []
   (box
@@ -50,7 +66,7 @@
     :width 120
     :hexpand false
     :active false
-    "󰥔   ${time}"
+    "󰥔    ${time}"
   )
 )
 
