@@ -17,8 +17,14 @@ $tb-foreground: $foreground;
 $charging: rgba(0, 255, 0, 0.7);
 $discharged: rgba(255, 0, 0, 0.7);
 
+$pacman: #F8D028;
+$blinky: #FF0000;
+$pinky: #FFB8FF;
+$inky: #00FFFF;
+$clyde: #FFB852;
+
 .topbar {
-    border-width: 2px;
+    border-width: 1px;
     border-color: $tb-border-color;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -29,9 +35,87 @@ $discharged: rgba(255, 0, 0, 0.7);
     padding: 0 16px;
 }
 
+.workspaces {
+    .workspace-entry {
+        padding: 0 6px;
+        transition: all 0.2s ease-in-out;
+
+        .ws-icon {
+            font-size: 16px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .ws-number {
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s ease-in-out;
+        }
+
+        &.active {
+            .ws-icon {
+                color: $pacman;
+                font-size: 18px;
+                text-shadow: 0 0 6px rgba($pacman, 0.6);
+            }
+            .ws-number {
+                color: $pacman;
+                font-size: 14px;
+            }
+        }
+
+        &.occupied {
+            .ws-icon {
+                font-size: 16px;
+                animation: float 2s ease-in-out infinite;
+            }
+            .ws-number {
+                color: $tb-foreground;
+            }
+            
+            &.ws-1 .ws-icon, &.ws-5 .ws-icon, &.ws-9 .ws-icon { color: $blinky; }
+            &.ws-2 .ws-icon, &.ws-6 .ws-icon, &.ws-10 .ws-icon { color: $pinky; }
+            &.ws-3 .ws-icon, &.ws-7 .ws-icon { color: $inky; } 
+            &.ws-4 .ws-icon, &.ws-8 .ws-icon { color: $clyde; }
+        }
+
+        &.empty {
+            opacity: 0.35;
+
+            .ws-icon {
+                color: $tb-foreground;
+                font-size: 14px;
+            }
+            .ws-number {
+                color: $tb-foreground;
+                font-size: 11px;
+            }
+            
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+}
+
+@keyframes float {
+    0% {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    50% {
+        margin-top: -3px;
+        margin-bottom: 3px;
+    }
+    100% {
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
 .clock,
 .battery,
-.system-stats {
+.system-stats,
+.workspaces {
     padding: 4px 12px;
     border-width: 1px;
     border-color: $tb-border-color;
@@ -42,6 +126,10 @@ $discharged: rgba(255, 0, 0, 0.7);
         color: $tb-foreground;
         font-weight: bold;
     }
+}
+
+.workspaces {
+    padding: 2px 12px;
 }
 
 .battery.charging label {

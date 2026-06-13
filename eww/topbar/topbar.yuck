@@ -29,14 +29,21 @@
   (box
     :class "wrapper"
     :orientation "horizontal"
-    (box :class "start")
-    (box :class "middle")
+    :space-evenly false
+    (box :class "start"
+         :space-evenly false
+         :halign "start"
+         :valign "center"
+      (workspaces)
+    )
+    (box :class "middle"
+         :hexpand true
+    )
     (box :class "end"
-        :space-evenly false
-        :spacing 10
-        :hexpand false
-        :valign "center"
-        :halign "end"
+         :space-evenly false
+         :spacing 10
+         :valign "center"
+         :halign "end"
       (system-stats)
       (battery)
       (clock)
@@ -48,6 +55,22 @@
 ; ( \/\/ )(_  _)(  _ \  / __)( ___)(_  _)/ __)
 ;  )    (  _)(_  )(_) )( (_-. )__)   )(  \__ \
 ; (__/\__)(____)(____/  \___/(____) (__) (___/
+
+(defwidget workspaces []
+  (box :class "workspaces" :orientation "horizontal" :space-evenly false :spacing 5
+    (for workspace in {workspaces}
+      (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+        (box :class "workspace-entry ws-${workspace.id} ${workspace.active ? "active" : workspace.on_screen ? "occupied" : "empty"}"
+             :orientation "horizontal"
+             :space-evenly false
+             :spacing 4
+          (label :class "ws-icon" :text "${workspace.active ? "󰮯" : "󰊠"}")
+          (label :class "ws-number" :text "${workspace.id}")
+        )
+      )
+    )
+  )
+)
 
 (defwidget system-stats []
   (box 
@@ -148,3 +171,10 @@
   :initial "time"
   :run-while true
 `date +%H:%M:%S`)
+
+;  __    ____  ___  ____  ____  _  _  ____  ____  ___ 
+; (  )  (_  _)/ __)(_  _)( ___)( \( )( ___)(  _ \/ __)
+;  )(__  _)(_ \__ \  )(   )__)  )  (  )__)  )   /\__ \
+; (____)(____)(___/ (__) (____)(_)\_)(____)(_)\_)(___/
+
+(deflisten workspaces :initial "[]" "hyprland-workspaces ALL")
