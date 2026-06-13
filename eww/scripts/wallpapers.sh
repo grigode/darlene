@@ -5,24 +5,38 @@ CURRENT_WP=$(cat "$HOME/.cache/wal/wal" 2>/dev/null)
 
 case "$1" in
     list)
-        echo -n "["
-        first=true
-        # Find all png, jpg, jpeg files in wallpapers directory
+        files=()
+
+        # Agregar primero el wallpaper actual
+        if [ -n "$CURRENT_WP" ] && [ -f "$CURRENT_WP" ]; then
+            files+=("$CURRENT_WP")
+        fi
+
+        # Agregar el resto evitando duplicados
         for f in "$WP_DIR"/*.{png,jpg,jpeg}; do
             [ -e "$f" ] || continue
+            [ "$f" = "$CURRENT_WP" ] && continue
+            files+=("$f")
+        done
+
+        echo -n "["
+        first=true
+
+        for f in "${files[@]}"; do
             if [ "$first" = true ]; then
                 first=false
             else
                 echo -n ","
             fi
+
             name=$(basename "$f")
-            current="false"
-            if [ "$f" = "$CURRENT_WP" ]; then
-                current="true"
-            fi
-            # Escape paths for JSON
+
+            current=false
+            [ "$f" = "$CURRENT_WP" ] && current=true
+
             echo -n "{\"path\":\"$f\",\"name\":\"$name\",\"current\":$current}"
         done
+
         echo "]"
         ;;
     open)
@@ -34,6 +48,8 @@ case "$1" in
         hyprctl keyword bind , right, sendshortcut, , TAB, activewindow
         
         # Open the selector window
+        eww close wallpaper-selector 2>/dev/null
+        sleep 0.1
         eww open wallpaper-selector
         ;;
     close)
