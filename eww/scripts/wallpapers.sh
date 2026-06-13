@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-WP_DIR="~/.config/wallpapers"
-CURRENT_WP=$(cat ~/.cache/wal/wal 2>/dev/null)
+WP_DIR="$HOME/.config/wallpapers"
+CURRENT_WP=$(cat "$HOME/.cache/wal/wal" 2>/dev/null)
 
 case "$1" in
     list)
