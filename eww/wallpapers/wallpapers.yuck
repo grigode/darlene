@@ -1,0 +1,42 @@
+(defpoll wallpapers_list :interval "10s"
+  :initial "[]"
+`~/.config/eww/scripts/wallpapers.sh list`)
+
+(defwindow wallpaper-selector
+  :monitor '["HDMI-A-1", "eDP-1", 0]'
+  :geometry (geometry :x "0px"
+    :y "0px"
+    :width "660px"
+    :height "240px"
+  :anchor "center")
+  :stacking "fg"
+  :focusable true
+  :exclusive false
+  :onlostfocus "~/.config/eww/scripts/wallpapers.sh close"
+  (wallpaper_selector_widget)
+)
+
+(defwidget wallpaper_selector_widget []
+  (box :class "wallpaper-selector-container"
+    :orientation "vertical"
+    :space-evenly false
+    :spacing 15
+    (label :class "wp-selector-title" :text "Wallpaper Selector")
+    (box :class "wallpaper-grid"
+      :orientation "horizontal"
+      :space-evenly true
+      :spacing 15
+      (for wp in {wallpapers_list}
+        (button :class "wallpaper-card ${wp.current ? "current" : ""}"
+          :onclick `~/.config/eww/scripts/wallpapers.sh select "${wp.path}"`
+          (box :orientation "vertical"
+            :space-evenly false
+            :spacing 8
+            (image :path "${wp.path}" :image-width 160 :image-height 90)
+            (label :class "wp-card-name" :text "${wp.name}" :limit-width 18)
+          )
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,73 @@
+@import '../../../.cache/wal/colors.scss';
+
+window#wallpaper-selector,
+window#wallpaper-selector decoration {
+    background-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.wallpaper-selector-container {
+    background-color: rgba($background, 0.95);
+    border: 1px solid rgba($foreground, 0.2);
+    border-radius: 28px;
+    padding: 24px;
+
+    .wp-selector-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: $foreground;
+        margin-bottom: 5px;
+    }
+
+    .wallpaper-grid {
+        .wallpaper-card {
+            background: rgba($background, 0.3);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 10px;
+            transition: all 0.2s ease-in-out;
+
+            /* Reset GTK button styles */
+            box-shadow: none;
+            text-shadow: none;
+
+            image {
+                border-radius: 8px;
+            }
+
+            .wp-card-name {
+                font-size: 12px;
+                color: rgba($foreground, 0.7);
+                font-weight: bold;
+            }
+
+            /* Gray border for focused / hovered (about to be selected) */
+            &:focus,
+            &:hover {
+                background: rgba($foreground, 0.05);
+                border-color: #7f8c8d; /* Muted gray */
+                
+                .wp-card-name {
+                    color: $foreground;
+                }
+            }
+
+            /* Green border for the current wallpaper */
+            &.current {
+                border-color: #2ecc71; /* Green */
+                background: rgba($foreground, 0.08);
+
+                .wp-card-name {
+                    color: #2ecc71;
+                }
+
+                &:focus,
+                &:hover {
+                    border-color: #27ae60; /* Darker green on hover */
+                }
+            }
+        }
+    }
+}
