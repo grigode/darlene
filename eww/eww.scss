@@ -1,4 +1,9 @@
 @import './topbar/topbar.scss';
+@import './osd/osd.scss';
+
+* {
+    background-color: transparent;
+}
 
 tooltip {
     background-color: transparent;

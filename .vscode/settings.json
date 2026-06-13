@@ -1,6 +1,7 @@
 {
   "files.exclude": {
     "Antigravity/": true,
+    "Android Open Source Project/": true,
     "blender/": true,
     "BraveSoftware/": true,
     "Code/": true,
@@ -8,6 +9,7 @@
     "dconf/": true,
     "go/": true,
     "gopass/": true,
+    "Google/": true,
     "gtk-3.0/": true,
     "htop/": true,
     "Jean Pierre Ruedi Mazuelos Saavedra/": true,

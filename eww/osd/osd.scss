@@ -1,0 +1,98 @@
+@import '/home/dc9/.cache/wal/colors.scss';
+
+$red: rgba(255, 0, 0, 0.6);
+$green: rgba(0, 255, 0, 0.6);
+
+.osd-container {
+    background-color: rgba($background, 0.95);
+    border: 1px solid rgba($foreground, 0.2);
+    border-radius: 28px;
+    padding: 18px 24px;
+    
+    &.visible {
+        animation: slide-in 0.25s ease-out forwards;
+    }
+    
+    &.hidden {
+        animation: slide-out 0.25s ease-in forwards;
+    }
+
+    .osd-header {
+        margin-bottom: 12px;
+
+        .osd-icon {
+            font-size: 80px;
+            color: $color4;
+
+            &.muted {
+                color: $red;
+            }
+        }
+    }
+
+    .osd-body {
+        .osd-text-label {
+            font-size: 14px;
+            font-weight: bold;
+            
+            &.active {
+                color: $green;
+            }
+            
+            &.muted {
+                color: $red;
+            }
+        }
+
+        .osd-progress {
+            min-width: 150px;
+            min-height: 10px;
+            margin-right: 10px;
+
+            trough {
+                background-color: rgba($foreground, 0.1);
+                border-radius: 5px;
+                min-height: 10px;
+            }
+
+            progress {
+                background-color: $color4;
+                border-radius: 5px;
+                min-height: 10px;
+            }
+        }
+
+        .osd-value {
+            font-size: 14px;
+            font-weight: bold;
+            color: $foreground;
+            min-width: 45px;
+        }
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        margin-bottom: -30px;
+        margin-top: 30px;
+    }
+    to {
+        opacity: 1;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+}
+
+@keyframes slide-out {
+    from {
+        opacity: 1;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+    to {
+        opacity: 0;
+        margin-bottom: -30px;
+        margin-top: 30px;
+    }
+}

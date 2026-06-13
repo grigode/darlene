@@ -1,0 +1,52 @@
+(defvar osd_visible false)
+(defvar osd_value 0)
+(defvar osd_icon "")
+(defvar osd_type "")
+(defvar osd_mic_muted false)
+
+(defwindow osd
+  :monitor '["HDMI-A-1", "eDP-1", 0]'
+  :geometry (geometry :x "0px"
+    :y "30px"
+    :width "260px"
+    :height "100px"
+    :anchor "bottom center"
+  )
+  :stacking "fg"
+  :focusable false
+  :exclusive false
+  (osd_widget)
+)
+
+(defwidget osd_widget []
+  (box :class "osd-container ${osd_visible ? "visible" : "hidden"}"
+    :orientation "vertical"
+    :space-evenly false
+    :spacing 10
+    (box :class "osd-header"
+      :orientation "horizontal"
+      :space-evenly false
+      :halign "center"
+      :valign "center"
+      (label :class "osd-icon ${osd_type == "mic" && osd_mic_muted ? "muted" : ""}" :text "${osd_icon}")
+    )
+    (box :class "osd-body"
+      :orientation "vertical"
+      :space-evenly false
+      :halign "center"
+      :valign "center"
+      (label :text "${osd_type == "mic" && osd_mic_muted ? "Microphone Muted" : osd_type == "mic" ? "Microphone Active" : ""}"
+        :class "osd-text-label ${osd_type == "mic" && osd_mic_muted ? "muted" : "active"}"
+      :visible "${osd_type == "mic"}")
+      (box :orientation "horizontal"
+        :space-evenly false
+        :spacing 10
+        :halign "center"
+        :valign "center"
+        :visible "${osd_type != "mic"}"
+        (progress :class "osd-progress" :value {osd_value} :orientation "horizontal")
+        (label :class "osd-value" :text "${osd_value}%")
+      )
+    )
+  )
+)
