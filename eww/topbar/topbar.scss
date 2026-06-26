@@ -260,3 +260,13 @@ $clyde: #FFB852;
         }
     }
 }
+
+.clock-tooltip {
+    .clock-tooltip-date {
+        color: $tb-foreground;
+        font-weight: bold;
+        font-size: 14px;
+        margin: 2px 4px;
+    }
+}
+

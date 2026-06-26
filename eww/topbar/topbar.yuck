@@ -148,15 +148,22 @@
 )
 
 (defwidget clock []
-  (box
-    :class "clock"
-    :orientation "horizontal"
-    :halign "center"
-    :valign "center"
-    :width 120
-    :hexpand false
-    :active false
-    "󰥔    ${time}"
+  (tooltip
+    (box :orientation "vertical"
+         :class "tooltip clock-tooltip"
+         :space-evenly false
+      (label :class "clock-tooltip-date" :text "󰸗    ${date}")
+    )
+    (box
+      :class "clock"
+      :orientation "horizontal"
+      :halign "center"
+      :valign "center"
+      :width 120
+      :hexpand false
+      :active false
+      "󰥔    ${time}"
+    )
   )
 )
 
@@ -170,7 +177,11 @@
 (defpoll time :interval "1s"
   :initial "time"
   :run-while true
-`date +%H:%M:%S`)
+  `date +%H:%M:%S`)
+
+(defpoll date :interval "10m"
+  :initial "date"
+  `date "+%A, %B %d, %Y"`)
 
 ;  __    ____  ___  ____  ____  _  _  ____  ____  ___ 
 ; (  )  (_  _)/ __)(_  _)( ___)( \( )( ___)(  _ \/ __)
