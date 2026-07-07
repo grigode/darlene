@@ -6,6 +6,8 @@ use tokio::net::{UnixListener, UnixStream};
 use tokio::signal;
 use tokio::sync::mpsc::{Receiver, channel};
 
+const SOCKET_PATH: &str = "/tmp/darlene.sock";
+
 async fn server(socket_path: String, mut shutdown_receiver: Receiver<()>) {
     let socket_path_buf = Path::new(&socket_path).to_path_buf();
     let socket_path_buf_clone = socket_path_buf.clone();
@@ -86,7 +88,7 @@ async fn client(socket_path: String, mut shutdown_receiver: Receiver<()>) {
 #[tokio::main]
 async fn main() {
     let mode = args().nth(1).unwrap();
-    let socket_path = args().nth(2).unwrap();
+    let socket_path = args().nth(2).unwrap_or_else(|| SOCKET_PATH.to_string());
     let (shutdown_sender, shutdown_receiver) = channel(1);
 
     tokio::spawn(async move {
@@ -100,9 +102,9 @@ async fn main() {
         }
     });
 
-    if mode.as_str() == "server" {
+    if mode.as_str() == "start" {
         server(socket_path, shutdown_receiver).await;
-    } else if mode.as_str() == "client" {
+    } else if mode.as_str() == "send" {
         client(socket_path, shutdown_receiver).await;
     } else {
         println!("Provide valid operation");
