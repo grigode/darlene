@@ -13,3 +13,6 @@ kitty/*.kitty-session
 !eww
 
 !darlene
+darlene/debug/
+darlene/target/
+darlene/Cargo.lock
