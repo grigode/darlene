@@ -16,6 +16,7 @@ async fn main() {
         eprintln!("Usage:");
         eprintln!("  darlene start [socket_path]");
         eprintln!("  darlene send <message...>");
+        eprintln!("  darlene stop [socket_path]");
         exit(1);
     }
 
@@ -49,8 +50,14 @@ async fn main() {
         let socket_path = std::env::var("DARLENE_SOCKET").unwrap_or_else(|_| SOCKET_PATH.to_string());
 
         client::run(socket_path, message).await;
+    } else if mode == "stop" {
+        let socket_path = args_list.get(2)
+            .cloned()
+            .unwrap_or_else(|| std::env::var("DARLENE_SOCKET").unwrap_or_else(|_| SOCKET_PATH.to_string()));
+
+        client::run(socket_path, "stop".to_string()).await;
     } else {
-        eprintln!("Invalid operation. Use 'start' or 'send'.");
+        eprintln!("Invalid operation. Use 'start', 'send', or 'stop'.");
         exit(1);
     }
 }

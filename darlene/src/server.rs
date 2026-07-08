@@ -10,6 +10,7 @@ use crate::config::{load_projects_config, save_projects_config, resolve_path};
 
 pub struct ServerState {
     pub active_project: Mutex<Option<String>>,
+    pub shutdown_tx: tokio::sync::mpsc::Sender<()>,
 }
 
 pub async fn start(socket_path: String, mut shutdown_receiver: Receiver<()>) {
@@ -24,24 +25,22 @@ pub async fn start(socket_path: String, mut shutdown_receiver: Receiver<()>) {
     let listener = UnixListener::bind(socket_path_buf).expect("Could not create unix socket");
     println!("Listening on {}", socket_path);
 
+    let (internal_shutdown_tx, mut internal_shutdown_rx) = tokio::sync::mpsc::channel(1);
+
     let server_state = Arc::new(ServerState {
         active_project: Mutex::new(None),
+        shutdown_tx: internal_shutdown_tx,
     });
 
     tokio::spawn(async move {
-        match shutdown_receiver.recv().await {
-            Some(()) => {
-                if socket_path_buf_clone.exists() {
-                    let _ = tokio::fs::remove_file(socket_path_buf_clone).await;
-                }
-                exit(0);
-            }
-            None => {
-                eprintln!(
-                    "received nothing from the shutdown receiver. This should not be possible"
-                )
-            }
+        tokio::select! {
+            _ = shutdown_receiver.recv() => {}
+            _ = internal_shutdown_rx.recv() => {}
         }
+        if socket_path_buf_clone.exists() {
+            let _ = tokio::fs::remove_file(socket_path_buf_clone).await;
+        }
+        exit(0);
     });
 
     while let Ok((mut stream, _)) = listener.accept().await {
@@ -114,6 +113,10 @@ pub async fn start(socket_path: String, mut shutdown_receiver: Receiver<()>) {
                         let active = state_clone.active_project.lock().unwrap().clone();
                         let response = active.unwrap_or_else(|| "No active project".to_string());
                         let _ = stream.write_all(response.as_bytes()).await;
+                    } else if command_str == "stop" {
+                        let _ = stream.write_all(b"Server shutting down...").await;
+                        let _ = state_clone.shutdown_tx.send(()).await;
+                        return;
                     } else {
                         // Fallback: Run as arbitrary shell command
                         println!("Executing command: {}", command_str);
