@@ -16,3 +16,6 @@ kitty/*.kitty-session
 darlene/debug/
 darlene/target/
 darlene/Cargo.lock
+
+!docs/
+!README.md
