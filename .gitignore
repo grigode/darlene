@@ -12,6 +12,7 @@ kitty/*.kitty-session
 
 !eww
 !mako
+!nvim
 !rofi
 
 !darlene
