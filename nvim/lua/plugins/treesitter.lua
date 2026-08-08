@@ -2,7 +2,11 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   opts = {
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "javascript", "html", "css", "bash", "python", "typescript" },
+    ensure_installed = {
+      "c", "cpp", "rust", "go", "cmake", "toml", "zig", "asm",
+      "javascript", "typescript", "tsx", "html", "css", "json", "yaml",
+      "python", "bash", "lua", "vim", "vimdoc", "markdown", "markdown_inline"
+    },
     sync_install = false,
     highlight = { enable = true },
     indent = { enable = true },

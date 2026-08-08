@@ -2,7 +2,11 @@ return {
   {
     "williamboman/mason.nvim",
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ui = {
+          border = "rounded",
+        },
+      })
     end,
   },
   {
@@ -10,7 +14,20 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls" },
+        ensure_installed = {
+          "clangd",        -- C / C++
+          "rust_analyzer", -- Rust
+          "gopls",         -- Go
+          "cmake",         -- CMake
+          "taplo",         -- TOML
+          "zls",           -- Zig
+          "ts_ls",         -- TypeScript / JavaScript
+          "html",          -- HTML
+          "cssls",         -- CSS
+          "pyright",       -- Python
+          "bashls",        -- Bash
+          "lua_ls",        -- Lua
+        },
         handlers = {
           function(server_name)
             vim.lsp.config(server_name, {})
@@ -18,6 +35,13 @@ return {
           end,
         },
       })
+
+      -- Diagnostic icons in sign column
+      local signs = { Error = "󰅚 ", Warn = "󰀦 ", Hint = "󰌵 ", Info = "󰋼 " }
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      end
     end,
   },
   {
@@ -42,6 +66,10 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
         mapping = cmp.mapping.preset.insert({
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -51,6 +79,13 @@ return {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
             else
               fallback()
             end
