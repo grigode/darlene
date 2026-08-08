@@ -59,7 +59,7 @@
 (defwidget workspaces []
   (box :class "workspaces" :orientation "horizontal" :space-evenly false :spacing 5
     (for workspace in {workspaces}
-      (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+      (eventbox :onclick "hyprctl eval 'hl.dispatch(hl.dsp.focus({ workspace = ${workspace.id} }))'"
         (box :class "workspace-entry ws-${workspace.id} ${workspace.active ? "active" : workspace.on_screen ? "occupied" : "empty"}"
              :orientation "horizontal"
              :space-evenly false

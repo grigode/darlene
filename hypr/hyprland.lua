@@ -6,7 +6,7 @@ hl.monitor({
     output   = "",
     mode     = "preferred",
     position = "auto",
-    scale    = "1.2",
+    scale    = "1",
 })
 
 
@@ -24,15 +24,16 @@ local menu        = "rofi -show run"
 -------------------
 
 hl.on("hyprland.start", function ()
-    h1.exec_cmd("awww-daemon &")
-    h1.exec_cmd("hyprpaper")
+    hl.exec_cmd("awww-daemon &")
+    hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("eww open topbar --screen 0 --id primary")
+    hl.exec_cmd("eww open topbar --screen 1 --id secondary")
+    hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 end)
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
-
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
@@ -146,6 +147,7 @@ hl.config({
     misc = {
         force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
         disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+	disable_splash_rendering = true,
     },
 })
 
@@ -170,6 +172,9 @@ hl.config({
             natural_scroll = false,
         },
     },
+    cursor = {
+        no_hardware_cursors = 1,
+    },
 })
 
 hl.gesture({
@@ -184,6 +189,7 @@ hl.device({
     name        = "epic-mouse-v1",
     sensitivity = -0.5,
 })
+
 
 
 ---------------------

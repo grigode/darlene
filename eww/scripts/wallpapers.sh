@@ -1,76 +1,116 @@
 #!/usr/bin/env bash
 
 WP_DIR="$HOME/.config/wallpapers"
-CURRENT_WP=$(cat "$HOME/.cache/wal/wal" 2>/dev/null)
+CACHE_WAL="$HOME/.cache/wal/wal"
+
+shopt -s nullglob
+
+get_current_wp() {
+    cat "$CACHE_WAL" 2>/dev/null
+}
 
 case "$1" in
+
     list)
+        CURRENT_WP=$(get_current_wp)
+
         files=()
 
-        # Agregar primero el wallpaper actual
-        if [ -n "$CURRENT_WP" ] && [ -f "$CURRENT_WP" ]; then
+        # Wallpaper actual primero
+        if [[ -n "$CURRENT_WP" && -f "$CURRENT_WP" ]]; then
             files+=("$CURRENT_WP")
         fi
 
-        # Agregar el resto evitando duplicados
-        for f in "$WP_DIR"/*.{png,jpg,jpeg}; do
-            [ -e "$f" ] || continue
-            [ "$f" = "$CURRENT_WP" ] && continue
+        # Agregar wallpapers restantes
+        for f in "$WP_DIR"/*.{png,jpg,jpeg,webp}; do
+            [[ -f "$f" ]] || continue
+            [[ "$f" == "$CURRENT_WP" ]] && continue
+
             files+=("$f")
         done
 
         echo -n "["
+
         first=true
 
         for f in "${files[@]}"; do
-            if [ "$first" = true ]; then
+            name=$(basename "$f")
+
+            current=false
+            [[ "$f" == "$CURRENT_WP" ]] && current=true
+
+            if [[ "$first" == true ]]; then
                 first=false
             else
                 echo -n ","
             fi
 
-            name=$(basename "$f")
-
-            current=false
-            [ "$f" = "$CURRENT_WP" ] && current=true
-
-            echo -n "{\"path\":\"$f\",\"name\":\"$name\",\"current\":$current}"
+            jq -n \
+                --arg path "$f" \
+                --arg name "$name" \
+                --argjson current "$current" \
+                '{path:$path,name:$name,current:$current}' \
+                | tr -d '\n'
         done
 
         echo "]"
         ;;
+
+
     open)
-        # Dynamically bind Escape to close the selector
-        hyprctl keyword bindn , escape, exec, ~/.config/eww/scripts/wallpapers.sh close
-        
-        # Dynamically bind Left/Right arrows to emulate Tab focus switching
-        hyprctl keyword bind , left, sendshortcut, SHIFT, TAB, activewindow
-        hyprctl keyword bind , right, sendshortcut, , TAB, activewindow
-        
-        # Open the selector window
+        # Bind temporal Escape
+        hyprctl keyword bindn ", escape, exec, ~/.config/eww/scripts/wallpapers.sh close"
+
+        # Navegación del selector
+        hyprctl keyword bind ", left, sendshortcut, SHIFT, TAB, activewindow"
+        hyprctl keyword bind ", right, sendshortcut, , TAB, activewindow"
+
+        # Abrir selector
         eww close wallpaper-selector 2>/dev/null
-        sleep 0.1
         eww open wallpaper-selector
         ;;
+
+
     close)
-        # Close the window if open
+        # Cerrar selector
         eww close wallpaper-selector 2>/dev/null || true
-        # Dynamically unbind keys
-        hyprctl keyword unbind , escape
-        hyprctl keyword unbind , left
-        hyprctl keyword unbind , right
+
+        # Limpiar binds temporales
+        hyprctl keyword unbind ", escape"
+        hyprctl keyword unbind ", left"
+        hyprctl keyword unbind ", right"
         ;;
+
+
     select)
         wp_path="$2"
-        if [ "$wp_path" = "$CURRENT_WP" ]; then
-            ~/.config/eww/scripts/wallpapers.sh close
+
+        if [[ -z "$wp_path" || ! -f "$wp_path" ]]; then
+            exit 1
+        fi
+
+        CURRENT_WP=$(get_current_wp)
+
+        # Si es el mismo wallpaper
+        if [[ "$wp_path" == "$CURRENT_WP" ]]; then
+            "$0" close
             exit 0
         fi
-        # Run pywal to generate colors and set wallpaper
+
+        # Aplicar wallpaper y colores
         wal -i "$wp_path"
-        # Close window and unbind keys
-        ~/.config/eww/scripts/wallpapers.sh close
-        # Reload eww so it registers the new colors immediately
+
+        # Cerrar selector
+        "$0" close
+
+        # Recargar eww
         eww reload
         ;;
+
+
+    *)
+        echo "Uso: $0 {list|open|close|select <wallpaper>}"
+        exit 1
+        ;;
+
 esac
