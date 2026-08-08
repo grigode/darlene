@@ -7,7 +7,8 @@ return {
     "MunifTanjim/nui.nvim",
   },
   keys = {
-    { "<leader>e", "<cmd>Neotree toggle left<cr>", desc = "Toggle Sidebar File Explorer" },
+    { "<leader>e", "<cmd>Neotree focus left<cr>", desc = "Focus Sidebar File Explorer" },
+    { "<leader>E", "<cmd>Neotree toggle left<cr>", desc = "Toggle Sidebar File Explorer" },
     { "<leader>pv", "<cmd>Neotree focus left<cr>", desc = "Focus File Explorer" },
   },
   config = function()
@@ -17,7 +18,7 @@ return {
       enable_git_status = true,
       enable_diagnostics = true,
       window = {
-        position = "right",
+        position = "left",
         width = 30,
       },
       filesystem = {
