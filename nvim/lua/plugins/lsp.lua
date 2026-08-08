@@ -7,20 +7,21 @@ return {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "ts_ls", "pyright", "html", "cssls" },
+        handlers = {
+          function(server_name)
+            vim.lsp.config(server_name, {})
+            vim.lsp.enable(server_name)
+          end,
+        },
       })
     end,
   },
   {
     "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({})
-      lspconfig.ts_ls.setup({})
-      lspconfig.pyright.setup({})
-    end,
   },
   {
     "hrsh7th/nvim-cmp",

@@ -3,8 +3,8 @@ return {
   opts = {},
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
-    { "-", "<cmd>Oil<cr>", desc = "Abrir explorador Oil" },
-    { "<leader>pv", "<cmd>Oil<cr>", desc = "Explorador de archivos" },
+    { "-", "<cmd>Oil<cr>", desc = "Open Oil explorer" },
+    { "<leader>pv", "<cmd>Oil<cr>", desc = "File explorer" },
   },
   config = function()
     require("oil").setup({

@@ -47,7 +47,7 @@ entry {
     background-color: transparent;
     text-color:       @fg;
     cursor:           text;
-    placeholder:      "Buscar...";
+    placeholder:      "Search...";
     placeholder-color: @grey;
 }
 

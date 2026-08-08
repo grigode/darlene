@@ -3,21 +3,21 @@ vim.g.maplocalleader = " "
 
 local keymap = vim.keymap
 
--- Guardar y salir rápido
-keymap.set("n", "<leader>w", ":w<CR>", { desc = "Guardar archivo" })
-keymap.set("n", "<leader>q", ":q<CR>", { desc = "Cerrar ventana" })
-keymap.set("n", "<leader>Q", ":qa!<CR>", { desc = "Salir sin guardar" })
+-- Quick save & quit
+keymap.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
+keymap.set("n", "<leader>q", ":q<CR>", { desc = "Close window" })
+keymap.set("n", "<leader>Q", ":qa!<CR>", { desc = "Quit without saving" })
 
--- Limpiar resaltado de búsqueda
-keymap.set("n", "<leader>nh", ":nohlsearch<CR>", { desc = "Limpiar búsqueda" })
+-- Clear search highlight
+keymap.set("n", "<leader>nh", ":nohlsearch<CR>", { desc = "Clear search highlight" })
 
--- Navegación entre divisiones (splits)
-keymap.set("n", "<C-h>", "<C-w>h", { desc = "Ir a ventana izquierda" })
-keymap.set("n", "<C-j>", "<C-w>j", { desc = "Ir a ventana abajo" })
-keymap.set("n", "<C-k>", "<C-w>k", { desc = "Ir a ventana arriba" })
-keymap.set("n", "<C-l>", "<C-w>l", { desc = "Ir a ventana derecha" })
+-- Navigation between splits
+keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
--- Redimensionar ventanas con flechas
+-- Resize splits with arrows
 keymap.set("n", "<C-Up>", ":resize -2<CR>")
 keymap.set("n", "<C-Down>", ":resize +2<CR>")
 keymap.set("n", "<C-Left>", ":vertical resize -2<CR>")

@@ -18,6 +18,6 @@ return {
         winblend = 0,
       },
     })
-    vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "Terminal Flotante" })
+    vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<cr>", { desc = "Floating Terminal" })
   end,
 }

@@ -6,23 +6,23 @@ return {
     local dashboard = require("alpha.themes.dashboard")
 
     dashboard.section.header.val = {
-      "                                                ",
-      "  ███╗   ██╗██xFF  ███████╗██████╗ ██╗   ██╗███╗   ███╗ ",
-      "  ████╗  ██║██║   ██╔════╝██╔══██╗██║   ██║████╗ ████║ ",
-      "  ██╔██╗ ██║██║   █████╗  ██║  ██║██║   ██║██╔████╔██║ ",
-      "  ██║╚██╗██║██║   ██╔══╝  ██║  ██║██║   ██║██║╚██╔╝██║ ",
-      "  ██║ ╚████║██║   ███████╗██████╔╝╚██████╔╝██║ ╚═╝ ██║ ",
-      "  ╚═╝  ╚═══╝╚═╝   ╚══════╝╚═════╝  ╚═════╝ ╚═╝     ╚═╝ ",
-      "                                                ",
-      "               ⚡ HACKER EDITION ⚡              ",
+      "                                                              ",
+      "  ██████╗  █████╗ ██████╗ ██╗     ███████╗███╗   ██╗███████╗  ",
+      "  ██╔══██╗██╔══██╗██╔══██╗██║     ██╔════╝████╗  ██║██╔════╝  ",
+      "  ██║  ██║███████║██████╔╝██║     █████╗  ██╔██╗ ██║█████╗    ",
+      "  ██║  ██║██╔══██║██╔══██╗██║     ██╔══╝  ██║╚██╗██║██╔══╝    ",
+      "  ██████╔╝██║  ██║██║  ██║███████╗███████╗██║ ╚████║███████╗  ",
+      "  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝  ",
+      "                                                              ",
+      "                                                              ",
     }
 
     dashboard.section.buttons.val = {
-      dashboard.button("f", "  Buscar archivos", "<cmd>Telescope find_files<cr>"),
-      dashboard.button("e", "  Explorador de archivos (Oil)", "<cmd>Oil<cr>"),
-      dashboard.button("r", "  Archivos recientes", "<cmd>Telescope oldfiles<cr>"),
-      dashboard.button("g", "  Buscar texto (grep)", "<cmd>Telescope live_grep<cr>"),
-      dashboard.button("q", "  Salir de Neovim", "<cmd>qa<cr>"),
+      dashboard.button("f", "  Find files", "<cmd>Telescope find_files<cr>"),
+      dashboard.button("e", "  File explorer (Oil)", "<cmd>Oil<cr>"),
+      dashboard.button("r", "  Recent files", "<cmd>Telescope oldfiles<cr>"),
+      dashboard.button("g", "  Find text (grep)", "<cmd>Telescope live_grep<cr>"),
+      dashboard.button("q", "  Quit Neovim", "<cmd>qa<cr>"),
     }
 
     alpha.setup(dashboard.opts)
