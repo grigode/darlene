@@ -1,0 +1,15 @@
+configuration {
+    modi:                       "drun,run,filebrowser,window";
+    show-icons:                 true;
+    display-drun:               "  Apps";
+    display-run:                "  Run";
+    display-filebrowser:        "  Files";
+    display-window:             "  Window";
+    drun-display-format:        "{name}";
+    window-format:              "{w} · {c} · {t}";
+    font:                       "JetBrainsMono Nerd Font 11";
+    terminal:                   "kitty";
+}
+
+@import "~/.cache/wal/colors-rofi-pywal.rasi"
+@import "theme.rasi"

@@ -1,0 +1,129 @@
+* {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+window {
+    location:         center;
+    anchor:           center;
+    width:            620px;
+    x-offset:         0px;
+    y-offset:         0px;
+
+    enabled:          true;
+    border:           2px;
+    border-color:     @border-col;
+    border-radius:    16px;
+    background-color: @bg;
+    cursor:           "default";
+}
+
+mainbox {
+    enabled:          true;
+    spacing:          14px;
+    padding:          20px;
+    background-color: transparent;
+    children:         [ "inputbar", "mode-switcher", "listview" ];
+}
+
+inputbar {
+    enabled:          true;
+    spacing:          10px;
+    padding:          10px 14px;
+    border-radius:    10px;
+    background-color: @bg-surface;
+    text-color:       @fg;
+    children:         [ "prompt", "entry" ];
+}
+
+prompt {
+    enabled:          true;
+    background-color: transparent;
+    text-color:       @accent;
+}
+
+entry {
+    enabled:          true;
+    background-color: transparent;
+    text-color:       @fg;
+    cursor:           text;
+    placeholder:      "Buscar...";
+    placeholder-color: @grey;
+}
+
+mode-switcher {
+    enabled:          true;
+    spacing:          8px;
+    background-color: transparent;
+}
+
+button {
+    padding:          6px 14px;
+    border-radius:    8px;
+    background-color: @bg-surface;
+    text-color:       @fg;
+    cursor:           pointer;
+}
+
+button selected {
+    background-color: @accent;
+    text-color:       @bg-solid;
+}
+
+listview {
+    enabled:          true;
+    columns:          1;
+    lines:            7;
+    cycle:            true;
+    dynamic:          true;
+    scrollbar:        false;
+    layout:           vertical;
+    reverse:          false;
+    fixed-height:     true;
+    fixed-columns:    true;
+    spacing:          6px;
+    background-color: transparent;
+}
+
+element {
+    enabled:          true;
+    spacing:          12px;
+    padding:          8px 12px;
+    border-radius:    8px;
+    background-color: transparent;
+    text-color:       @fg;
+    cursor:           pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @selected;
+    text-color:       @fg;
+    border:           1px solid;
+    border-color:     @accent;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element-icon {
+    background-color: transparent;
+    text-color:       inherit;
+    size:             26px;
+    cursor:           inherit;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    highlight:        inherit;
+    cursor:           inherit;
+    vertical-align:   0.5;
+    horizontal-align: 0.0;
+}

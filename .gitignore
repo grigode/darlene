@@ -12,6 +12,8 @@ kitty/*.kitty-session
 
 !eww
 
+!rofi
+
 !darlene
 darlene/debug/
 darlene/target/
