@@ -99,6 +99,7 @@ case "$1" in
 
         # Aplicar wallpaper y colores
         wal -i "$wp_path"
+        makoctl reload 2>/dev/null
 
         # Cerrar selector
         "$0" close

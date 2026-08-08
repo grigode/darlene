@@ -24,6 +24,7 @@ local menu        = "rofi -show drun"
 -------------------
 
 hl.on("hyprland.start", function ()
+    hl.exec_cmd("mako &")
     hl.exec_cmd("awww-daemon &")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("eww open topbar --screen 0 --id primary")
