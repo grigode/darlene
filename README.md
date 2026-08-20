@@ -10,7 +10,6 @@
 ![Lua](https://img.shields.io/badge/Config-Lua-000080?style=for-the-badge&logo=lua)
 ![Eww](https://img.shields.io/badge/Widgets-Eww-ff69b4?style=for-the-badge)
 ![Neovim](https://img.shields.io/badge/Editor-Neovim-green?style=for-the-badge&logo=neovim)
-![Rust](https://img.shields.io/badge/Daemon-Rust-orange?style=for-the-badge&logo=rust)
 ![License](https://img.shields.io/badge/License-MIT-brightgreen?style=for-the-badge)
 
 </div>
@@ -24,7 +23,6 @@
 - [📦 Repository Structure](#-repository-structure)
 - [🛠️ System Requirements](#️-system-requirements)
 - [🚀 Installation](#-installation)
-- [🦀 Darlene Daemon (Rust IPC)](#-darlene-daemon-rust-ipc)
 - [⌨️ Keyboard Shortcuts](#️-keyboard-shortcuts)
 - [🎨 Customization](#-customization)
 - [📄 License](#-license)
@@ -33,7 +31,7 @@
 
 ## 🏔️ About the Project
 
-**Darlene Dotfiles** is a comprehensive configuration suite for **Hyprland** desktop environments designed to deliver an aesthetic, responsive, and highly functional workflow. It includes a custom **Eww** widget system, modular **Lua**-based Hyprland configuration, dynamic **Pywal** color palette generation, an advanced **Neovim** IDE setup, and a custom IPC daemon written in **Rust**.
+**Darlene Dotfiles** is a comprehensive configuration suite for **Hyprland** desktop environments designed to deliver an aesthetic, responsive, and highly functional workflow. It includes a custom **Eww** widget system, modular **Lua**-based Hyprland configuration, dynamic **Pywal** color palette generation, and an advanced **Neovim** IDE setup.
 
 ---
 
@@ -47,7 +45,6 @@
 | **Terminal** | [Kitty](https://sw.kovidgoyal.net/kitty/) | GPU-accelerated terminal emulator integrated with Pywal themes. |
 | **Text Editor** | [Neovim](https://neovim.io) | Full IDE setup with `lazy.nvim`, LSP, Telescope, Treesitter, and Neo-tree. |
 | **Notifications** | [Mako](https://github.com/emersion/mako) | Lightweight notification daemon for Wayland. |
-| **IPC Daemon** | Custom Rust (`darlene`) | Native Rust daemon for listening to and synchronizing workspace events via Unix sockets. |
 | **Theming & Colors** | Pywal / Wallpapers | Dynamic color palettes generated automatically from active wallpaper. |
 
 ---
@@ -78,9 +75,6 @@
 ├── nvim/                   # Neovim Configuration (Lazy.nvim)
 │   ├── init.lua
 │   └── lua/plugins/        # Plugins (LSP, Telescope, Lualine, Treesitter, etc.)
-├── darlene/                # Native Rust IPC Daemon
-│   ├── Cargo.toml
-│   └── src/                # IPC Server & Client logic
 ├── wallpapers/             # Wallpaper gallery
 ├── install.sh              # Automated setup & verification script
 └── LICENSE                 # MIT License
@@ -95,7 +89,7 @@ Ensure the following packages are installed on your Linux distribution (Arch Lin
 ### Core Dependencies
 ```bash
 # Arch Linux (pacman)
-sudo pacman -S hyprland kitty eww rofi-wayland mako neovim cargo jq wireplumber brightnessctl
+sudo pacman -S hyprland kitty eww rofi-wayland mako neovim jq wireplumber brightnessctl
 ```
 
 ### Optional & Recommended Tools
@@ -130,33 +124,6 @@ cd ~/.config
 
 # Create a backup of your existing ~/.config entries
 ./install.sh --backup
-
-# Skip building the Rust daemon (darlene)
-./install.sh --no-build
-```
-
----
-
-## 🦀 Darlene Daemon (Rust IPC)
-
-The project includes a custom daemon written in **Rust** ([`darlene/`](file:///home/dc9/.config/darlene)) that communicates over a UNIX socket (`/tmp/darlene.sock`) to handle workspace event notifications and state synchronization between Hyprland and Eww.
-
-### Manual Build
-```bash
-cd ~/.config/darlene
-cargo build --release
-```
-
-### Daemon Usage
-```bash
-# Start the IPC server
-./darlene/target/release/darlene start
-
-# Send events/messages to the server
-./darlene/target/release/darlene send "workspace_changed 2"
-
-# Stop the server
-./darlene/target/release/darlene stop
 ```
 
 ---
