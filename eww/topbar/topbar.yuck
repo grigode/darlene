@@ -59,7 +59,8 @@
 (defwidget workspaces []
   (box :class "workspaces" :orientation "horizontal" :space-evenly false :spacing 5
     (for workspace in {workspaces}
-      (eventbox :onclick "hyprctl eval 'hl.dispatch(hl.dsp.focus({ workspace = ${workspace.id} }))'"
+      (eventbox :visible {workspace.id > 0}
+                :onclick "hyprctl eval 'hl.dispatch(hl.dsp.focus({ workspace = ${workspace.id} }))'"
         (box :class "workspace-entry ws-${workspace.id} ${workspace.active ? "active" : workspace.on_screen ? "occupied" : "empty"}"
              :orientation "horizontal"
              :space-evenly false
@@ -188,4 +189,4 @@
 ;  )(__  _)(_ \__ \  )(   )__)  )  (  )__)  )   /\__ \
 ; (____)(____)(___/ (__) (____)(_)\_)(____)(_)\_)(___/
 
-(deflisten workspaces :initial "[]" "hyprland-workspaces ALL")
+(deflisten workspaces :initial "[]" "hyprland-workspaces ALL | jq -c --unbuffered 'map(select(.id > 0))'")
