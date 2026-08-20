@@ -29,7 +29,6 @@ Installation script for Darlene dotfiles configuration.
 Options:
   --help, -h          Show this help message.
   --check-deps        Only check system dependencies.
-  --no-build          Skip building the Rust IPC daemon (darlene).
   --backup            Backup existing configurations to ~/.config_backup_<timestamp>.
 
 Example:
@@ -39,7 +38,6 @@ EOF
 }
 
 CHECK_ONLY=false
-SKIP_BUILD=false
 CREATE_BACKUP=false
 
 for arg in "$@"; do
@@ -50,9 +48,6 @@ for arg in "$@"; do
             ;;
         --check-deps)
             CHECK_ONLY=true
-            ;;
-        --no-build)
-            SKIP_BUILD=true
             ;;
         --backup)
             CREATE_BACKUP=true
@@ -84,7 +79,6 @@ DEPENDENCIES_REQUIRED=(
     "rofi:Application Launcher"
     "mako:Notification Daemon"
     "nvim:Neovim Editor"
-    "cargo:Rust Package Manager"
     "jq:JSON Processor"
     "wpctl:WirePlumber Control"
     "brightnessctl:Brightness Control"
@@ -153,25 +147,8 @@ if [ -d "$DOTFILES_DIR/eww/scripts" ]; then
     log_success "Executable permissions granted to Eww scripts."
 fi
 
-# 4. Build Rust Daemon (darlene)
-if [ "$SKIP_BUILD" = false ]; then
-    if [ -d "$DOTFILES_DIR/darlene" ] && command -v cargo &>/dev/null; then
-        log_info "Building Darlene daemon (Rust)..."
-        (
-            cd "$DOTFILES_DIR/darlene"
-            cargo build --release
-        )
-        log_success "Darlene daemon compiled successfully: darlene/target/release/darlene"
-    elif ! command -v cargo &>/dev/null; then
-        log_warn "Cargo is not installed. Skipping Darlene daemon build."
-    fi
-else
-    log_info "Skipping daemon build (--no-build active)."
-fi
-
 echo ""
 log_success "Darlene Dotfiles setup completed successfully!"
 echo -e "\n${BOLD}Recommended next steps:${RESET}"
 echo -e "  1. Reload Hyprland with: ${BLUE}hyprctl reload${RESET}"
-echo -e "  2. Start the Darlene daemon if not already running: ${BLUE}~/.config/darlene/target/release/darlene start${RESET}"
-echo -e "  3. Check ${BLUE}README.md${RESET} for keyboard shortcuts and widget details.\n"
+echo -e "  2. Check ${BLUE}README.md${RESET} for keyboard shortcuts and widget details.\n"
