@@ -22,3 +22,4 @@ darlene/Cargo.lock
 
 !docs/
 !README.md
+!install.sh
