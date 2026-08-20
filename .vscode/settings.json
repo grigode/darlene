@@ -29,6 +29,8 @@
     "obs-studio/": true,
     "pulse/": true,
     "session/": true,
+    "spicetify/": true,
+    "spotify/": true,
     "turborepo/": true,
     "vscode-sqltools/": true,
     "VSCodium/": true,
