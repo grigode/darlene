@@ -15,11 +15,7 @@ kitty/*.kitty-session
 !nvim
 !rofi
 
-!darlene
-darlene/debug/
-darlene/target/
-darlene/Cargo.lock
-
 !docs/
+
 !README.md
 !install.sh
