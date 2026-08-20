@@ -374,4 +374,5 @@ hl.window_rule({
     name  = "zoom",
     match = { class = "^(zoom)$" },
     float = true,
+    monitor = "eDP-1",
 })
