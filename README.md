@@ -2,7 +2,7 @@
 
 ![Darlene Logo](./docs/darlene-logo.png)
 
-# 🌙 Darlene Dotfiles
+# Darlene Dotfiles
 
 **A sleek, modern, and minimalist Hyprland desktop environment configuration for Linux.**
 
@@ -16,26 +16,26 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [About the Project](#-about-the-project)
-- [✨ Key Components](#-key-components)
-- [📦 Repository Structure](#-repository-structure)
-- [🛠️ System Requirements](#️-system-requirements)
-- [🚀 Installation](#-installation)
-- [⌨️ Keyboard Shortcuts](#️-keyboard-shortcuts)
-- [🎨 Customization](#-customization)
-- [📄 License](#-license)
+- [About the Project](#about-the-project)
+- [Key Components](#key-components)
+- [Repository Structure](#repository-structure)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Customization](#customization)
+- [License](#license)
 
 ---
 
-## 🏔️ About the Project
+## About the Project
 
 **Darlene Dotfiles** is a comprehensive configuration suite for **Hyprland** desktop environments designed to deliver an aesthetic, responsive, and highly functional workflow. It includes a custom **Eww** widget system, modular **Lua**-based Hyprland configuration, dynamic **Pywal** color palette generation, and an advanced **Neovim** IDE setup.
 
 ---
 
-## ✨ Key Components
+## Key Components
 
 | Component | Tool | Description |
 | :--- | :--- | :--- |
@@ -49,7 +49,7 @@
 
 ---
 
-## 📦 Repository Structure
+## Repository Structure
 
 ```text
 ~/.config/
@@ -82,7 +82,7 @@
 
 ---
 
-## 🛠️ System Requirements
+## System Requirements
 
 Ensure the following packages are installed on your Linux distribution (Arch Linux / EndeavourOS / Fedora / Debian / etc.):
 
@@ -101,7 +101,7 @@ pip install pywal
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Automated Method (Recommended)
 
@@ -128,7 +128,7 @@ cd ~/.config
 
 ---
 
-## ⌨️ Keyboard Shortcuts
+## Keyboard Shortcuts
 
 Below is a summary of keybindings defined in `hyprland.lua`:
 
@@ -145,7 +145,7 @@ Below is a summary of keybindings defined in `hyprland.lua`:
 
 ---
 
-## 🎨 Customization
+## Customization
 
 1. **Wallpapers & Pywal**: Add new wallpapers into [`wallpapers/`](file:///home/dc9/.config/wallpapers). Use the Eww wallpaper selector widget or run `wal -i ~/.config/wallpapers/your-wallpaper.png` to refresh terminal and widget colors.
 2. **Neovim Configuration**: Customize plugins or options under [`nvim/lua/plugins/`](file:///home/dc9/.config/nvim/lua/plugins).
@@ -153,6 +153,6 @@ Below is a summary of keybindings defined in `hyprland.lua`:
 
 ---
 
-## 📄 License
+## License
 
 This repository is licensed under the **MIT License**. See [LICENSE](file:///home/dc9/.config/LICENSE) for more details.
